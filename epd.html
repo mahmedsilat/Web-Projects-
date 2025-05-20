@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VestinGrow - EPD Platform</title>
+    <style>
+        :root {
+            --primary-color: #003956;
+            --secondary-color: #050c97ea;
+            --accent-color: #003956;
+            --light-bg: #f5f9f5;
+            --dark-text: #333;
+            --light-text: #fff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--light-text);
+            border: 1px solid var(--light-text);
+        }
+        
+        .btn-signup {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/500');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: var(--light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light-text);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .epd-categories {
+            padding: 4rem 0;
+        }
+        
+        .category-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: var(--light-bg);
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            border-color: var(--accent-color);
+        }
+        
+        .epd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .epd-card {
+            background-color: var(--light-text);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .epd-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .epd-header {
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+        
+        .epd-header h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .epd-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        
+        .epd-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+        }
+        
+        .epd-body {
+            padding: 1.5rem;
+        }
+        
+        .epd-manufacturer {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .epd-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .epd-metric {
+            text-align: center;
+            padding: 0.8rem;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+        }
+        
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .epd-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: #f5f5f5;
+            border-top: 1px solid #eee;
+        }
+        
+        .verification-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .verification-badge i {
+            color: #38b000;
+        }
+        
+        .epd-download {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .stakeholders {
+            padding: 4rem 0;
+            background-color: var(--light-bg);
+        }
+        
+        .stakeholders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stakeholder-card {
+            background-color: var(--light-text);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .stakeholder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stakeholder-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+        
+        .stakeholder-info {
+            padding: 1.5rem;
+        }
+        
+        .stakeholder-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .stakeholder-description {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .benefits {
+            padding: 4rem 0;
+        }
+        
+        .benefits-container {
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .benefit-column {
+            padding: 2rem;
+        }
+        
+        .benefit-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .benefit-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .benefit-header i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-list {
+            list-style: none;
+        }
+        
+        .benefit-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        
+        .benefit-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .collaboration {
+            padding: 4rem 0;
+            background-color: var(--light-bg);
+            text-align: center;
+        }
+        
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .partner-logo {
+            max-width: 150px;
+            height: 80px;
+            background-color: var(--light-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .cta {
+            padding: 4rem 0;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+        }
+        
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            background-color: var(--light-text);
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline {
+            padding: 4rem 0;
+        }
+        
+        .timeline-container {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+        
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #e0e0e0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            padding: 1rem 0;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            top: 1.5rem;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: var(--light-text);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        footer {
+            background-color: #333;
+            color: var(--light-text);
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--light-text);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .epd-details {
+            padding: 2rem;
+        }
+        
+        .epd-detail-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .epd-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+        
+        .detail-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .detail-table th, .detail-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-table th {
+            background-color: #f5f5f5;
+            font-weight: 500;
+        }
+        
+        .impact-chart {
+            height: 300px;
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .epd-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-card, .epd-card, .stakeholder-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .timeline-container::before {
+                left: 40px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after {
+                left: 30px;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    VestinGrow EPD
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#epd-database">EPD Database</a></li>
+                    <li><a href="#stakeholders">Stakeholders</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#timeline">Roadmap</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">Login</button>
+                    <button class="btn btn-signup">Sign Up</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>MENA's First Centralized EPD Platform</h1>
+                <p>A comprehensive digital hub for verified Environmental Product Declarations in the UAE and wider MENA region.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for EPDs by product category, manufacturer, or certification...">
+                    <button><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Platform Features</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Centralized EPD Repository</h3>
+                    <p>Access verified Environmental Product Declarations from multiple program operators in one centralized platform.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Regional Focus</h3>
+                    <p>Designed specifically for the MENA region to promote local manufacturers and address regional sustainability needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Verified Data</h3>
+                    <p>All EPDs are third-party verified according to ISO standards ensuring credibility and transparency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Advanced Search</h3>
+                    <p>Easily find products based on environmental impact metrics, certifications, or specific sustainability criteria.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Data Visualization</h3>
+                    <p>Interactive charts and comparison tools to analyze environmental impacts across product categories.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Integration Support</h3>
+                    <p>Connect with BIM software, green building certifications, and procurement systems through APIs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EPD Database Section -->
+    <section class="epd-categories" id="epd-database">
+        <div class="container">
+            <div class="section-title">
+                <h2>EPD Database</h2>
+            </div>
+            <div class="category-options">
+                <button class="category-btn active">All Categories</button>
+                <button class="category-btn">Building Materials</button>
+                <button class="category-btn">Interior Finishes</button>
+                <button class="category-btn">Insulation</button>
+                <button class="category-btn">Flooring</button>
+                <button class="category-btn">HVAC Systems</button>
+            </div>
+            <div class="epd-grid">
+                <div class="epd-card" data-category="building-materials">
+                    <div class="epd-header">
+                        <h3>Low-Carbon Concrete</h3>
+                        <div class="epd-badges">
+                            <span class="epd-badge">EN 15804</span>
+                            <span class="epd-badge">ISO 14025</span>
+                        </div>
+                    </div>
+                    <div class="epd-body">
+                        <div class="epd-manufacturer">Gulf Sustainable Materials</div>
+                        <div class="epd-metrics">
+                            <div class="epd-metric">
+                                <div class="metric-value">265 kg</div>
+                                <div class="metric-label">CO₂e/m³</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">30%</div>
+                                <div class="metric-label">Recycled Content</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">50 years</div>
+                                <div class="metric-label">Reference Service Life</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">2.1 MJ/kg</div>
+                                <div class="metric-label">Primary Energy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="epd-footer">
+                        <div class="verification-badge">
+                            <i class="fas fa-shield-alt"></i> Verified by EmiratesGBC
+                        </div>
+                        <a href="#" class="epd-download">View Details</a>
+                    </div>
+                </div>
+
+                <div class="epd-card" data-category="interior-finishes">
+                    <div class="epd-header">
+                        <h3>Eco-Friendly Wall Panels</h3>
+                        <div class="epd-badges">
+                            <span class="epd-badge">ISO 14025</span>
+                            <span class="epd-badge">EN 15804</span>
+                        </div>
+                    </div>
+                    <div class="epd-body">
+                        <div class="epd-manufacturer">Sahara Interiors</div>
+                        <div class="epd-metrics">
+                            <div class="epd-metric">
+                                <div class="metric-value">140 kg</div>
+                                <div class="metric-label">CO₂e/m²</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">60%</div>
+                                <div class="metric-label">Recycled Fiber</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">20 years</div>
+                                <div class="metric-label">Reference Service Life</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">1.5 MJ/kg</div>
+                                <div class="metric-label">Primary Energy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="epd-footer">
+                        <div class="verification-badge">
+                            <i class="fas fa-shield-alt"></i> Verified by Intertek
+                        </div>
+                        <a href="#" class="epd-download">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="epd-card" data-category="interior-finishes">
+                    <div class="epd-header">
+                        <h3>Water-Based Eco Varnish</h3>
+                        <div class="epd-badges">
+                            <span class="epd-badge">Green Seal Certified</span>
+                        </div>
+                    </div>
+                    <div class="epd-body">
+                        <div class="epd-manufacturer">AquaCoat Finishes</div>
+                        <div class="epd-metrics">
+                            <div class="epd-metric">
+                                <div class="metric-value">85 kg</div>
+                                <div class="metric-label">CO₂e/liter</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">0%</div>
+                                <div class="metric-label">VOC Emissions</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">10 years</div>
+                                <div class="metric-label">Service Life</div>
+                            </div>
+                            <div class="epd-metric">
+                                <div class="metric-value">0.9 MJ/l</div>
+                                <div class="metric-label">Primary Energy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="epd-footer">
+                        <div class="verification-badge">
+                            <i class="fas fa-shield-alt"></i> Verified by Green Building Council
+                        </div>
+                        <a href="#" class="epd-download">View Details</a>
+                    </div>
+                </div>
+                
